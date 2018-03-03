@@ -48,9 +48,7 @@ def find_distance(event, context):
             mode = 'driving', 
             traffic_model = 'best_guess')
 
-    values['bus'] = {'distance': bus_values['rows']['elements']['distance']['value'], 'reimbursement': bus_values['rows']['elements']['distance']['value'] * config.bus_miles_reimburse}
-    values['train'] = {'distance': train_values['rows']['elements']['distance']['value'], 'reimbursement': train_values['rows']['elements']['distance']['value'] * config.train_miles_reimburse}
     values['car'] = {'distance': car_values['rows']['elements']['distance']['value'], 'reimbursement': car_values['rows']['elements']['distance']['value'] * config.car_miles_reimburse}
 
-    return json.loads(json.dumps(values))
+    return {'statusCode': 200, 'body': json.dumps(values)}
 
