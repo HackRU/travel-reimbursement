@@ -2,6 +2,7 @@ import config
 import json
 import googlemaps
 from datetime import datetime
+from pymongo import MongoClient
 
 def find_distance(event, context):
     tests = MongoClient(config.DB_URI)['tests']
@@ -27,7 +28,7 @@ def find_distance(event, context):
             mode = 'transit',
             transit_mode = 'bus')
     
-    values['bus'] = {'distance': bus_value['rows']['elements']['distance']['value'], 'reimbursement': config.bus_miles_reimburse* (bus_value['rows']['elements']['distance']['value'])}
+    values['bus'] = {'distance': bus_value['rows'][0]['elements'][0]['distance']['value'], 'reimbursement': config.bus_miles_reimburse* (bus_value['rows'][0]['elements'][0]['distance']['value'])}
 
     train_values = gmaps.distance_matrix(
             origins = start_loc['address'] + ' ' + start_loc['city'] + ', ' + start_loc['state'] + ' ' + start_loc['zip'], 
@@ -36,7 +37,7 @@ def find_distance(event, context):
             mode = 'transit',
             transit_mode = 'train')
 
-    values['train'] = {'distance': train_values['rows']['elements']['distance']['value'], 'reimbursement': config.train_values_miles_reimburse* (bus_value['rows']['elements']['distance']['value'])}
+    values['train'] = {'distance': train_values['rows'][0]['elements'][0]['distance']['value'], 'reimbursement': config.train_values_miles_reimburse* (bus_value['rows'][0]['elements'][0]['distance']['value'])}
 
     car_values = gmaps.distance_matrix(
             origins = start_loc['address'] + ' ' + start_loc['city'] + ', ' + start_loc['state'] + ' ' + start_loc['zip'], 
@@ -45,7 +46,7 @@ def find_distance(event, context):
             mode = 'driving', 
             traffic_model = 'best_guess')
 
-    values['car'] = {'distance': car_values['rows']['elements']['distance']['value'], 'reimbursement': car_values['rows']['elements']['distance']['value'] * config.car_miles_reimburse}
+    values['car'] = {'distance': car_values['rows']['elements']['distance']['value'], 'reimbursement': car_values['rows'][0]['elements'][0]['distance']['value'] * config.car_miles_reimburse}
 
     return {'statusCode': 200, 'body': json.dumps(values)}
 

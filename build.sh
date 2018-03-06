@@ -1,9 +1,12 @@
-#!/bin/sh
-# needs python 3.5 as a dependency, works
+#!/bin/bash
+
+# create venv
+virtualenv reimbursement
+virtualenv -p python3 reimbursement
+
+alias python='reimbursement/bin/python3'
+alias pip='reimbursement/bin/pip3'
 
 pip install -U googlemaps
-
-git clone https://github.com/googlemaps/google-maps-services-python.git
-
-cd google-maps-services-python
+pip install requests
 
