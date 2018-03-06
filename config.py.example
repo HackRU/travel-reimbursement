@@ -1,6 +1,6 @@
 maps_key = 'IzaSyCvwVRp4iZXgRZrR8CJGsVkAdjc8IyQrV8'
 
-hackru_location = {'address':'83 Rockafeller Rd', 'city':'Piscataway', 'state':'New Jersey', 'zip':08854}
+hackru_location = {'address':'83 Rockafeller Rd', 'city':'Piscataway', 'state':'New Jersey', 'zip':'08854'}
 
 bus_miles_reimburse = 0.27
 train_miles_reimburse = 0.27

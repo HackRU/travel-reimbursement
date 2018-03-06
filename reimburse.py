@@ -20,29 +20,26 @@ def find_distance(event, context):
 
     rac_address = config.hackru_location['address'] + ' ' + config.hackru_location['city'] + ', ' + config.hackru_location['state'] + ' ' + config.hackru_location['zip']
 
-    bus_values = 
-    gmaps.distance_matrix(
+    bus_values = gmaps.distance_matrix(
             origins = start_loc['address'] + ' ' + start_loc['city'] + ', ' + start_loc['state'] + ' ' + start_loc['zip'], 
             destinations = rac_address,
             units = 'imperial', 
             mode = 'transit',
             transit_mode = 'bus')
     
-    values['bus'] = {'distance': bus_value['rows']['elements']['distance']['value'], 'reimbursement' = config.bus_miles_reimburse* (bus_value['rows']['elements']['distance']['value'])}
+    values['bus'] = {'distance': bus_value['rows']['elements']['distance']['value'], 'reimbursement': config.bus_miles_reimburse* (bus_value['rows']['elements']['distance']['value'])}
 
-    train_values = 
-    gmaps.distance_matrix(
+    train_values = gmaps.distance_matrix(
             origins = start_loc['address'] + ' ' + start_loc['city'] + ', ' + start_loc['state'] + ' ' + start_loc['zip'], 
             destinations = rac_address,
             units = 'imperial', 
             mode = 'transit',
             transit_mode = 'train')
 
-    values['train'] = {'distance': train_values['rows']['elements']['distance']['value'], 'reimbursement' = config.train_values_miles_reimburse* (bus_value['rows']['elements']['distance']['value'])}
+    values['train'] = {'distance': train_values['rows']['elements']['distance']['value'], 'reimbursement': config.train_values_miles_reimburse* (bus_value['rows']['elements']['distance']['value'])}
 
-    car_values = 
-    gmaps.distance_matrix(
-            origins = start_loc['address'] + ' ' + start_loc['city'] + ', ' + start_loc['state'] + ' ' + start_loc['zip'], Thursday 3-4 PM
+    car_values = gmaps.distance_matrix(
+            origins = start_loc['address'] + ' ' + start_loc['city'] + ', ' + start_loc['state'] + ' ' + start_loc['zip'], 
             destinations = rac_address,
             units = 'imperial', 
             mode = 'driving', 
