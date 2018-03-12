@@ -5,9 +5,13 @@ from datetime import datetime
 from pymongo import MongoClient
 
 def find_distance(event, context):
-    tests = MongoClient(config.DB_URI)['tests']
-    db.authenticate(config.DB_USER, config.DB_PASS)
-    start_loc = db.tests.find_one({"email": event['email']}, {"address": 1, "city": 1, "state": 1, "zip": 1}) # will be called using email of pertinent user
+    client = MongoClient(config.DB_URI)
+    db = client['lcs-db']
+    db.authenticate(config.DB_USER,config.DB_PASS)
+
+    tests = db['test']
+
+    start_loc = tests.find_one({"email": event['email']}, {"address": 1, "city": 1, "state": 1, "zip": 1}) # will be called using email of pertinent user
 
     start_loc = start_loc['address'] + ' ' + start_loc['city'] + ', ' + start_loc['state'] + ' ' +  start_loc['zip'] 
 
